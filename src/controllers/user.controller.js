@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   //step 3
-  const isExistUser = User.findOne({
+  const isExistUser = await User.findOne({
     // this is or or oprator
     $or: [{ email }, { username }],
   });
@@ -72,7 +72,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Something went wrong while registering the user");
   }
 
-  return res
+  return await res
     .status(201)
     .json(new ApiResponses(200, createdUser, "user registered successfully!"));
 });
